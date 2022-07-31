@@ -1,0 +1,23 @@
+{
+    "welcome": "Bem vindo!",
+    "inThisApp": "Nesse aplicativo você controlara suas despesas",
+    "createAccount": "Criar conta",
+    "login": "Fazer login",
+    "easyToUse": "É facil de usar",
+    "justEnterYourExpense": "Basta inserir suas despesas",
+    "longTerm": "Longo prazo",
+    "planHowMuch": "Planeje quanto irá gastar ou acrescentar a longo prazo",
+    "createYourAccount": "Criar sua conta",
+    "email": "Seu email",
+    "password": "Senha",
+    "confirmYourPassword": "Confirme sua senha",
+    "iHaveReadAndAgree": "Eu li e concordo com os ",
+    "termsOfUse": "termos de uso",
+    "loginWithGoogle": "Fazer login com Google",
+    "haveAnAccount": "Você já possui uma conta?",
+    "forgotYour": "Esqueceu sua ",
+    "loginSuccess": "Sucesso no login!",
+    "sendEmailToResetPassword": "Enviaremos um email a você para redefinição da senha",
+    "send": "Enviar",
+    "emailSuccessfullySent": "Email enviado com sucesso!"
+}
