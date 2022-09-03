@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-SizedBox HorizontalSpace({required double width}) {
+SizedBox HorizontalSpace(double width) {
   return SizedBox(
     width: width,
   );

@@ -20,7 +20,7 @@ dependencies:
   flutter_modular: ^5.0.3
 
   # state manager
-  # get: ^4.6.5
+  get: ^4.6.5
 
   # tests
   mockito: ^5.3.0
