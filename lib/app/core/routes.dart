@@ -1,13 +1,13 @@
 enum Routes {
   initial,
-  login,
+  signin,
   createAccount,
   forgotPassword,
 }
 
 const routesMapping = {
   Routes.initial: "/",
-  Routes.login: "/login/",
+  Routes.signin: "/signin/",
   Routes.createAccount: "/create-account/",
   Routes.forgotPassword: "forgot-password/",
 };
