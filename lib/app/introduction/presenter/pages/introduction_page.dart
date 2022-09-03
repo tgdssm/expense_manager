@@ -67,7 +67,7 @@ class _IntroductionPageState extends State<IntroductionPage>
                 _buildPageIndicator(2),
               ],
             ),
-            VerticalSpace(height: 45),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -82,6 +82,7 @@ class _IntroductionPageState extends State<IntroductionPage>
                 ),
               ],
             ),
+            VerticalSpace(height: 50),
           ],
         ),
       ),
@@ -109,8 +110,11 @@ class _IntroductionPageState extends State<IntroductionPage>
   }
 
   _buildPageView() {
-    return SizedBox(
-      height: 500,
+    return Container(
+      padding: const EdgeInsets.only(
+        top: 75,
+      ),
+      constraints: const BoxConstraints(maxHeight: 500),
       child: TabBarView(
         controller: _tabController,
         physics: const NeverScrollableScrollPhysics(),
@@ -119,16 +123,22 @@ class _IntroductionPageState extends State<IntroductionPage>
             image: AssetsPath.standing,
             title: Strings.welcome.i18n(),
             subtitle: Strings.inThisApp.i18n(),
+            heightImage: 247,
+            widthImage: 167,
           ),
           _buildPage(
             image: AssetsPath.businessAnalytics,
             title: Strings.easyToUse.i18n(),
             subtitle: Strings.justEnterYourExpense.i18n(),
+            heightImage: 197,
+            widthImage: 295,
           ),
           _buildPage(
             image: AssetsPath.calendar,
             title: Strings.longTerm.i18n(),
             subtitle: Strings.planHowMuch.i18n(),
+            heightImage: 192,
+            widthImage: 199,
             isCalendar: true,
           ),
         ],
@@ -140,20 +150,32 @@ class _IntroductionPageState extends State<IntroductionPage>
     required String image,
     required String title,
     required String subtitle,
+    required double widthImage,
+    required double heightImage,
     bool isCalendar = false,
   }) {
     return Container(
       alignment: Alignment.center,
       child: Column(
         children: [
-          VerticalSpace(height: 60),
           Container(
-            padding: EdgeInsets.only(
-                left: isCalendar ? 40 : 0, top: isCalendar ? 40 : 0),
             height: 247,
-            child: Image.asset(image),
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              padding: EdgeInsets.only(
+                left: isCalendar ? 40 : 0,
+                top: isCalendar ? 40 : 0,
+              ),
+              width: widthImage,
+              height: heightImage,
+              child: SizedBox(
+                child: Image.asset(
+                  image,
+                ),
+              ),
+            ),
           ),
-          VerticalSpace(height: 73),
+          VerticalSpace(height: 63),
           Text(
             title,
             style: TextStyles.heading4,
