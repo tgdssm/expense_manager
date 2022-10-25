@@ -10,7 +10,7 @@ abstract class CreateAccount {
 }
 
 class CreateAccountImpl implements CreateAccount {
-  final SigninRepository repository;
+  final SignInRepository repository;
   CreateAccountImpl(this.repository);
   @override
   Future<Either<Failure, void>> call({

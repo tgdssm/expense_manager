@@ -6,8 +6,8 @@ class CreateAccountError implements Failure {
   CreateAccountError({this.message});
 }
 
-class SigninError implements Failure {
+class SignInError implements Failure {
   @override
   String? message;
-  SigninError({this.message});
+  SignInError({this.message});
 }

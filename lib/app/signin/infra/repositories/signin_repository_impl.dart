@@ -8,10 +8,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../domain/entities/create_account_credential.dart';
 
-class SigninRepositoryImpl implements SigninRepository {
+class SignInRepositoryImpl implements SignInRepository {
   final SignInDatasource datasource;
 
-  SigninRepositoryImpl(this.datasource);
+  SignInRepositoryImpl(this.datasource);
 
   @override
   Future<Either<Failure, UserModel>> createAccount({
