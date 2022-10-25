@@ -1,16 +1,18 @@
 import 'package:expense_manager/app/core/app_colors.dart';
 import 'package:expense_manager/app/core/assets_path.dart';
-import 'package:expense_manager/app/core/buttons/default_button.dart';
-import 'package:expense_manager/app/core/buttons/outline_button.dart';
-import 'package:expense_manager/app/core/helpers/horizontal_space.dart';
-import 'package:expense_manager/app/core/helpers/vertical_space.dart';
 import 'package:expense_manager/app/core/injection_dependencies.dart';
+import 'package:expense_manager/app/core/routes.dart';
 import 'package:expense_manager/app/core/strings.dart';
 import 'package:expense_manager/app/core/text_styles.dart';
+import 'package:expense_manager/app/core/widgets/helpers/horizontal_space.dart';
 import 'package:expense_manager/app/introduction/presenter/controllers/introduction_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get/get.dart';
 import 'package:localization/localization.dart';
+import '../../../core/widgets/buttons/default_button.dart';
+import '../../../core/widgets/buttons/outline_button.dart';
+import '../../../core/widgets/helpers/vertical_space.dart';
 
 class IntroductionPage extends StatefulWidget {
   const IntroductionPage({Key? key}) : super(key: key);
@@ -47,25 +49,29 @@ class _IntroductionPageState extends State<IntroductionPage>
     return Scaffold(
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _buildPageView(),
             VerticalSpace(height: 25),
-            TabBar(
-              controller: _tabController,
-              indicatorColor: Colors.transparent,
-              labelPadding: EdgeInsets.zero,
-              padding: EdgeInsets.zero,
-              isScrollable: true,
-              onTap: (index) {
-                _controller.indexCurrentPage.value = index;
-                _controller.timerToSkipPage!.cancel();
-                _controller.skipPage(_tabController);
-              },
-              tabs: [
-                _buildPageIndicator(0),
-                _buildPageIndicator(1),
-                _buildPageIndicator(2),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: TabBar(
+                controller: _tabController,
+                indicatorColor: Colors.transparent,
+                labelPadding: EdgeInsets.zero,
+                padding: EdgeInsets.zero,
+                isScrollable: true,
+                onTap: (index) {
+                  _controller.indexCurrentPage.value = index;
+                  _controller.timerToSkipPage!.cancel();
+                  _controller.skipPage(_tabController);
+                },
+                tabs: [
+                  _buildPageIndicator(0),
+                  _buildPageIndicator(1),
+                  _buildPageIndicator(2),
+                ],
+              ),
             ),
             const Spacer(),
             Row(
@@ -73,12 +79,12 @@ class _IntroductionPageState extends State<IntroductionPage>
               children: [
                 DefaultButton(
                   text: Strings.createAccount.i18n(),
-                  onTap: () {},
+                  onTap: () => Modular.to.pushNamed(Routes.createAccount.name),
                 ),
                 HorizontalSpace(21),
                 OutlineButton(
                   text: Strings.login.i18n(),
-                  onTap: () {},
+                  onTap: () => Modular.to.pushNamed(Routes.signin.name),
                 ),
               ],
             ),

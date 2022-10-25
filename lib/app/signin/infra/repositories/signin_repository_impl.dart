@@ -9,7 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../domain/entities/create_account_credential.dart';
 
 class SigninRepositoryImpl implements SigninRepository {
-  final SigninDatasource datasource;
+  final SignInDatasource datasource;
 
   SigninRepositoryImpl(this.datasource);
 
