@@ -7,7 +7,7 @@ class UserModel {
 
   Map<String, dynamic> toMap() => {
     "name": name,
-    "email": email,
+    "email": email.toLowerCase(),
     "id": id
   };
 }

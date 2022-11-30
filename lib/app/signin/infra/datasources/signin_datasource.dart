@@ -6,4 +6,8 @@ abstract class SignInDatasource {
   Future<UserModel> createAccount({
     required CreateAccountCredential credential,
   });
+
+  Future<bool> verifyEmailAlreadyUsed({
+    required String email,
+  });
 }

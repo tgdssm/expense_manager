@@ -11,6 +11,7 @@ class DefaultTextField extends StatefulWidget {
   final String label;
   final double width;
   final double height;
+  final String? Function(String?)? validator;
   const DefaultTextField({
     Key? key,
     required this.controller,
@@ -18,7 +19,8 @@ class DefaultTextField extends StatefulWidget {
     this.isPasswd = false,
     this.showPasswd = false,
     this.width = 325,
-    this.height = 50,
+    this.height = 75,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -32,6 +34,7 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
       height: widget.height,
       width: widget.width,
       child: TextFormField(
+        controller: widget.controller,
         cursorColor: AppColors.primaryColor,
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -42,6 +45,14 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
             borderSide: const BorderSide(color: AppColors.primaryColor),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: AppColors.primaryColor),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: AppColors.lightRed),
           ),
           label: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -63,6 +74,7 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
           ),
         ),
         obscureText: widget.isPasswd,
+        validator: widget.validator,
       ),
     );
   }

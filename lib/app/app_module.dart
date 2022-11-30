@@ -3,8 +3,10 @@ import 'package:expense_manager/app/core/routes.dart';
 import 'package:expense_manager/app/introduction/presenter/controllers/introduction_controller.dart';
 import 'package:expense_manager/app/introduction/presenter/pages/introduction_page.dart';
 import 'package:expense_manager/app/signin/domain/usecases/create_account.dart';
+import 'package:expense_manager/app/signin/domain/usecases/verify_email.dart';
 import 'package:expense_manager/app/signin/external/datasources/signin_datasource_impl.dart';
 import 'package:expense_manager/app/signin/infra/repositories/signin_repository_impl.dart';
+import 'package:expense_manager/app/signin/presenter/controllers/create_account_controller.dart';
 import 'package:expense_manager/app/signin/presenter/pages/create_account_page.dart';
 import 'package:expense_manager/app/signin/presenter/pages/sign_in_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,22 +36,35 @@ class AppModule extends Module {
         // Firebase
         Bind.instance<FirebaseAuth>(
           FirebaseAuth.instance,
-          export: true,
         ),
         Bind.instance<FirebaseFirestore>(
           FirebaseFirestore.instance,
-          export: true,
         ),
+
         // Datasource
-        Bind((i) => SignInDatasourceImpl(i(), i())),
+        Bind.singleton(
+          (i) => SignInDatasourceImpl(i(), i()),
+        ),
 
         // Repositories
-        Bind((i) => SignInRepositoryImpl(i())),
+        Bind.singleton(
+          (i) => SignInRepositoryImpl(i()),
+        ),
 
         // Use cases
-        Bind((i) => CreateAccountImpl(i())),
+        Bind.singleton(
+          (i) => CreateAccountUseCaseImpl(i()),
+        ),
+        Bind.singleton(
+          (i) => VerifyEmailUseCaseImpl(i()),
+        ),
 
         // Controllers
-        Bind((i) => IntroductionControllerImpl()),
+        Bind.singleton(
+          (i) => IntroductionControllerImpl(),
+        ),
+        Bind.singleton(
+          (i) => CreateAccountControllerImpl(i(), i()),
+        ),
       ];
 }

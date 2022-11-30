@@ -9,6 +9,7 @@
     "planHowMuch": "Planeje quanto irá gastar ou acrescentar a longo prazo",
     "createYourAccount": "Criar sua conta",
     "email": "Seu email",
+    "name": "Seu nome",
     "password": "Senha",
     "confirmYourPassword": "Confirme sua senha",
     "iHaveReadAndAgree": "Eu li e concordo com os ",
@@ -19,5 +20,11 @@
     "loginSuccess": "Sucesso no login!",
     "sendEmailToResetPassword": "Enviaremos um email a você para redefinição da senha",
     "send": "Enviar",
-    "emailSuccessfullySent": "Email enviado com sucesso!"
+    "emailSuccessfullySent": "Email enviado com sucesso!",
+    "emailIsAlreadyBeingUsed": "Email já está sendo utilizado!",
+    "errorCreatingAccount": "Erro ao criar conta",
+    "passwordsDoNotMatch": "As senhas não coincidem",
+    "fillInThePasswordField": "Preencha o campo de senha",
+    "fillInTheEmailField": "Preencha o campo de email",
+    "invalidFormat": "Formato Inválido"
 }

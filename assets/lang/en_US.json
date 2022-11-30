@@ -9,6 +9,7 @@
     "planHowMuch": "Plan how much you will spend or add long term",
     "createYourAccount": "Create your account",
     "email": "Email",
+    "name": "Name",
     "password": "Password",
     "confirmYourPassword": "Confirm your password",
     "iHaveReadAndAgree": "I have read and agree to the ",
@@ -19,5 +20,11 @@
     "loginSuccess": "Login success!",
     "sendEmailToResetPassword": "We will send you an email to reset your password.",
     "send": "Send",
-    "emailSuccessfullySent": "Email successfully sent!"
+    "emailSuccessfullySent": "Email successfully sent!",
+    "emailIsAlreadyBeingUsed": "Email is already being used!",
+    "errorCreatingAccount": "Error creating account",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "fillInThePasswordField": "Fill in the password field",
+    "fillInTheEmailField": "Fill in the email field",
+    "invalidFormat": "Invalid format"
 }

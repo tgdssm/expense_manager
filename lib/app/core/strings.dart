@@ -9,6 +9,7 @@ class Strings {
   static const planHowMuch = "planHowMuch";
   static const createYourAccount = "createYourAccount";
   static const email = "email";
+  static const name = "name";
   static const password = "password";
   static const confirmYourPassword = "confirmYourPassword";
   static const iHaveReadAndAgree = "iHaveReadAndAgree";
@@ -20,4 +21,14 @@ class Strings {
   static const sendEmailToResetPassword = "sendEmailToResetPassword";
   static const send = "send";
   static const emailSuccessfullySent = "emailSuccessfullySent";
+  static const emailIsAlreadyBeingUsed = "emailIsAlreadyBeingUsed";
+  static const passwordsDoNotMatch = "passwordsDoNotMatch";
+  static const fillInThePasswordField = "fillInThePasswordField";
+  static const fillInTheEmailField = "fillInTheEmailField";
+  static const invalidFormat = "invalidFormat";
+
+
+  // Errors
+  static const errorCreatingAccount = "errorCreatingAccount";
+
 }

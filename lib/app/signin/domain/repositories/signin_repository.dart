@@ -8,4 +8,8 @@ abstract class SignInRepository {
   Future<Either<Failure, UserModel>> createAccount({
     required CreateAccountCredential credential,
   });
+
+  Future<Either<Failure, bool>> verifyEmailAlreadyUsed({
+    required String email,
+  });
 }

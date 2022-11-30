@@ -1,13 +1,13 @@
 import 'package:expense_manager/app/core/app_colors.dart';
+import 'package:expense_manager/app/core/injection_dependencies.dart';
 import 'package:expense_manager/app/core/widgets/default_text_field.dart';
 import 'package:expense_manager/app/core/strings.dart';
 import 'package:expense_manager/app/core/text_styles.dart';
 import 'package:expense_manager/app/core/widgets/buttons/default_button.dart';
-import 'package:expense_manager/app/core/widgets/helpers/horizontal_space.dart';
 import 'package:expense_manager/app/core/widgets/helpers/vertical_space.dart';
+import 'package:expense_manager/app/signin/presenter/controllers/create_account_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-
 import '../../../core/assets_path.dart';
 import '../../../core/widgets/buttons/default_back_button.dart';
 import '../../../core/widgets/buttons/outline_button.dart';
@@ -20,6 +20,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  final controller = injection<CreateAccountController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

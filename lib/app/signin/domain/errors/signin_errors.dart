@@ -11,3 +11,10 @@ class SignInError implements Failure {
   String? message;
   SignInError({this.message});
 }
+
+class VerifyEmailError implements Failure {
+  @override
+  String? message;
+  VerifyEmailError({this.message});
+}
+
