@@ -1,10 +1,9 @@
 import 'package:expense_manager/app/core/strings.dart';
+import 'package:expense_manager/app/signin/domain/errors/signin_errors.dart';
 import 'package:expense_manager/app/signin/domain/usecases/create_account.dart';
 import 'package:expense_manager/app/signin/domain/usecases/verify_email.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:localization/localization.dart';
-
 import '../../domain/entities/create_account_credential.dart';
 
 abstract class CreateAccountController {
@@ -13,12 +12,14 @@ abstract class CreateAccountController {
   abstract TextEditingController emailController;
   abstract TextEditingController passwdController;
   abstract TextEditingController confirmPasswdController;
-  abstract Rx<String> errorMessage;
-  abstract Rx<bool> loadingButton;
+  abstract bool emailExists;
+  abstract ValueNotifier<String> errorMessage;
+  abstract ValueNotifier<bool> loadingButton;
   CreateAccountCredential get credential;
 
+  Future<void> callFunctionsToCreateAccount();
   Future<void> createAccount();
-  Future<bool> emailExists();
+  Future<void> fEmailExists();
   void resetControllers();
 }
 
@@ -47,10 +48,14 @@ class CreateAccountControllerImpl implements CreateAccountController {
   TextEditingController passwdController = TextEditingController();
 
   @override
-  Rx<String> errorMessage = "".obs;
+  bool emailExists = false;
 
   @override
-  Rx<bool> loadingButton = false.obs;
+  ValueNotifier<String> errorMessage = ValueNotifier("");
+
+  @override
+  ValueNotifier<bool> loadingButton = ValueNotifier(false);
+
 
   @override
   CreateAccountCredential get credential => CreateAccountCredential(
@@ -61,30 +66,46 @@ class CreateAccountControllerImpl implements CreateAccountController {
   );
 
   @override
-  Future<void> createAccount() async {
+  Future<void> callFunctionsToCreateAccount() async {
     if(formKey.currentState!.validate()) {
-      loadingButton(true);
-      try {
-        if(!(await emailExists())) {
-          await createAccountUseCase(credential: credential);
-        } else {
-          errorMessage.value = Strings.emailIsAlreadyBeingUsed.i18n();
-        }
-      } catch (e) {
-        errorMessage.value = e.toString();
+      loadingButton.value = true;
+      emailExists = false;
+      await fEmailExists();
+      if(!emailExists) {
+        createAccount();
+      } else {
+        errorMessage.value = Strings.emailIsAlreadyBeingUsed.i18n();
       }
-      loadingButton(false);
-      // resetControllers();
+      loadingButton.value = false;
     }
   }
 
   @override
-  Future<bool> emailExists() async {
+  Future<void> createAccount() async {
+    try {
+      final result = await createAccountUseCase(credential: credential);
+      if(result.isSuccess) {
+        errorMessage.value = "";
+        resetControllers();
+      } else {
+        errorMessage.value = (result.errorData as CreateAccountError).message!;
+      }
+    } catch(e) {
+      errorMessage.value = e.toString();
+    }
+  }
+
+  @override
+  Future<void> fEmailExists() async {
     try {
       final result = await verifyEmailUseCase(credential: credential);
-      return result.successData;
+      if(result.isSuccess) {
+        errorMessage.value = "";
+        emailExists = result.successData;
+      } else {
+        errorMessage.value = (result.errorData as VerifyEmailError).message!;
+      }
     } catch (e) {
-      print(e);
       errorMessage.value = e.toString();
       throw Exception(e);
     }
@@ -97,5 +118,4 @@ class CreateAccountControllerImpl implements CreateAccountController {
     passwdController.clear();
     confirmPasswdController.clear();
   }
-
 }

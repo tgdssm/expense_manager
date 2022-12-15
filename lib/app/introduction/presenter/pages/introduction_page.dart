@@ -8,7 +8,6 @@ import 'package:expense_manager/app/core/widgets/helpers/horizontal_space.dart';
 import 'package:expense_manager/app/introduction/presenter/controllers/introduction_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:get/get.dart';
 import 'package:localization/localization.dart';
 import '../../../core/widgets/buttons/default_button.dart';
 import '../../../core/widgets/buttons/outline_button.dart';
@@ -96,8 +95,9 @@ class _IntroductionPageState extends State<IntroductionPage>
   }
 
   _buildPageIndicator(int indexPage) {
-    return Obx(
-      () => Container(
+    return ValueListenableBuilder(
+      valueListenable: _controller.indexCurrentPage,
+      builder: (context, value, child) => Container(
         height: 8,
         width: indexPage == _controller.indexCurrentPage.value ? 25 : 8,
         margin: const EdgeInsets.only(right: 8),

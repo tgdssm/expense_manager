@@ -7,7 +7,6 @@ import 'package:expense_manager/app/core/widgets/helpers/error_box.dart';
 import 'package:expense_manager/app/core/widgets/helpers/horizontal_space.dart';
 import 'package:expense_manager/app/core/widgets/helpers/vertical_space.dart';
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
 import 'package:localization/localization.dart';
 
 import '../../../core/assets_path.dart';
@@ -58,12 +57,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 VerticalSpace(height: 25),
                 buildTextFieldConfirmPasswd(),
                 VerticalSpace(height: 25),
-                Obx(
-                  () => _controller.errorMessage.isNotEmpty
+                ValueListenableBuilder(
+                  valueListenable: _controller.errorMessage,
+                  builder: (context, value, child) => _controller
+                          .errorMessage.value.isNotEmpty
                       ? Padding(
-                        padding: const EdgeInsets.only(bottom: 25),
-                        child: ErrorBox(error: _controller.errorMessage.value),
-                      )
+                          padding: const EdgeInsets.only(bottom: 25),
+                          child:
+                              ErrorBox(error: _controller.errorMessage.value),
+                        )
                       : const SizedBox(),
                 ),
                 OutlineButton(
@@ -73,18 +75,18 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   width: 325,
                 ),
                 VerticalSpace(height: 22),
-                Obx(() {
-                  return DefaultButton(
-                    loading: _controller.loadingButton.value,
-                    text: Strings.createAccount.i18n(),
-                    onTap: () async {
-                      await _controller.createAccount();
-                      print(_controller.credential.passwd);
-                      print(_controller.credential.confirmPasswd);
-                    },
-                    width: 325,
-                  );
-                }),
+                ValueListenableBuilder(
+                    valueListenable: _controller.loadingButton,
+                    builder: (context, value, child) {
+                      return DefaultButton(
+                        loading: _controller.loadingButton.value,
+                        text: Strings.createAccount.i18n(),
+                        onTap: () async {
+                          await _controller.callFunctionsToCreateAccount();
+                        },
+                        width: 325,
+                      );
+                    }),
                 VerticalSpace(height: 28),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
