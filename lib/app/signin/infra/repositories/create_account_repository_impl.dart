@@ -1,7 +1,7 @@
 import 'package:expense_manager/app/core/strings.dart';
-import 'package:expense_manager/app/signin/domain/errors/signin_errors.dart';
-import 'package:expense_manager/app/signin/domain/repositories/signin_repository.dart';
-import 'package:expense_manager/app/signin/infra/datasources/signin_datasource.dart';
+import 'package:expense_manager/app/signin/domain/errors/login_errors.dart';
+import 'package:expense_manager/app/signin/domain/repositories/create_account_repository.dart';
+import 'package:expense_manager/app/signin/infra/datasources/create_account_datasource.dart';
 import 'package:expense_manager/app/signin/infra/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:localization/localization.dart';
@@ -9,10 +9,10 @@ import 'package:result/result.dart';
 
 import '../../domain/entities/create_account_credential.dart';
 
-class SignInRepositoryImpl implements SignInRepository {
-  final SignInDatasource datasource;
+class CreateAccountRepositoryImpl implements ICreateAccountRepository {
+  final ICreateAccountDatasource datasource;
 
-  SignInRepositoryImpl(this.datasource);
+  CreateAccountRepositoryImpl(this.datasource);
 
   @override
   Future<Result<UserModel>> createAccount({

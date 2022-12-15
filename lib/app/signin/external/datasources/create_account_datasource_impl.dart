@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_manager/app/signin/domain/entities/create_account_credential.dart';
-import 'package:expense_manager/app/signin/infra/datasources/signin_datasource.dart';
+import 'package:expense_manager/app/signin/infra/datasources/create_account_datasource.dart';
 import 'package:expense_manager/app/signin/infra/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class SignInDatasourceImpl implements SignInDatasource {
+class CreateAccountDatasourceImpl implements ICreateAccountDatasource {
   final FirebaseAuth auth;
   final FirebaseFirestore fireStore;
-  SignInDatasourceImpl(this.auth, this.fireStore);
+  CreateAccountDatasourceImpl(this.auth, this.fireStore);
 
   Future<void> createUserInFirestore(UserModel user) async {
     final userCollection = fireStore.collection("Users");

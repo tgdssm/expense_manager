@@ -1,4 +1,4 @@
-import 'package:expense_manager/app/signin/domain/repositories/signin_repository.dart';
+import 'package:expense_manager/app/signin/domain/repositories/create_account_repository.dart';
 import 'package:result/result.dart';
 
 abstract class SignInWithGoogleUseCase {
@@ -6,7 +6,7 @@ abstract class SignInWithGoogleUseCase {
 }
 
 class SignInWithGoogleUseCaseImpl implements SignInWithGoogleUseCase {
-  final SignInRepository repository;
+  final ICreateAccountRepository repository;
   SignInWithGoogleUseCaseImpl(this.repository);
   @override
   Future<Result<bool>> call() {

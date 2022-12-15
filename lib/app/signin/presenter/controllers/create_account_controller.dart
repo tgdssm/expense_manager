@@ -1,5 +1,5 @@
 import 'package:expense_manager/app/core/strings.dart';
-import 'package:expense_manager/app/signin/domain/errors/signin_errors.dart';
+import 'package:expense_manager/app/signin/domain/errors/login_errors.dart';
 import 'package:expense_manager/app/signin/domain/usecases/create_account.dart';
 import 'package:expense_manager/app/signin/domain/usecases/verify_email.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +24,8 @@ abstract class CreateAccountController {
 }
 
 class CreateAccountControllerImpl implements CreateAccountController {
-  final CreateAccountUseCase createAccountUseCase;
-  final VerifyEmailUseCase verifyEmailUseCase;
+  final ICreateAccountUseCase createAccountUseCase;
+  final IVerifyEmailUseCase verifyEmailUseCase;
 
   CreateAccountControllerImpl(
     this.createAccountUseCase,

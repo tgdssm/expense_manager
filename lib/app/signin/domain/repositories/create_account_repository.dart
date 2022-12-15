@@ -3,7 +3,7 @@ import 'package:result/result.dart';
 
 import '../entities/create_account_credential.dart';
 
-abstract class SignInRepository {
+abstract class ICreateAccountRepository {
   Future<Result<UserModel>> createAccount({
     required CreateAccountCredential credential,
   });

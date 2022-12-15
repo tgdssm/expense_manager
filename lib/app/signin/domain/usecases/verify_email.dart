@@ -1,15 +1,15 @@
-import 'package:expense_manager/app/signin/domain/repositories/signin_repository.dart';
+import 'package:expense_manager/app/signin/domain/repositories/create_account_repository.dart';
 import 'package:result/result.dart';
 
 import '../entities/create_account_credential.dart';
-abstract class VerifyEmailUseCase {
+abstract class IVerifyEmailUseCase {
   Future<Result<bool>> call({
     required CreateAccountCredential credential,
   });
 }
 
-class VerifyEmailUseCaseImpl implements VerifyEmailUseCase {
-  final SignInRepository repository;
+class VerifyEmailUseCaseImpl implements IVerifyEmailUseCase {
+  final ICreateAccountRepository repository;
 
   VerifyEmailUseCaseImpl(this.repository);
   @override
