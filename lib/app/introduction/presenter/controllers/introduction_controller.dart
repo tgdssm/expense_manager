@@ -1,11 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
 
 abstract class IntroductionController {
   abstract Timer? timerToSkipPage;
-  abstract Rx<int> indexCurrentPage;
+  abstract ValueNotifier<int> indexCurrentPage;
   void skipPage(TabController tabController);
 }
 
@@ -14,7 +12,7 @@ class IntroductionControllerImpl implements IntroductionController {
   Timer? timerToSkipPage;
 
   @override
-  Rx<int> indexCurrentPage = 0.obs;
+  ValueNotifier<int> indexCurrentPage = ValueNotifier(0);
 
   @override
   void skipPage(TabController tabController) {

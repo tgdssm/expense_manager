@@ -1,13 +1,9 @@
-import 'package:dartz/dartz.dart';
-import 'package:expense_manager/app/core/failure.dart';
-import 'package:expense_manager/app/core/strings.dart';
-import 'package:expense_manager/app/signin/domain/errors/signin_errors.dart';
 import 'package:expense_manager/app/signin/domain/repositories/signin_repository.dart';
-import 'package:localization/localization.dart';
+import 'package:result/result.dart';
 
 import '../entities/create_account_credential.dart';
 abstract class VerifyEmailUseCase {
-  Future<Either<Failure, bool>> call({
+  Future<Result<bool>> call({
     required CreateAccountCredential credential,
   });
 }
@@ -17,14 +13,9 @@ class VerifyEmailUseCaseImpl implements VerifyEmailUseCase {
 
   VerifyEmailUseCaseImpl(this.repository);
   @override
-  Future<Either<Failure, bool>> call({
+  Future<Result<bool>> call({
     required CreateAccountCredential credential,
   }) async {
-    if(!credential.validateEmailFormat()) {
-      return Left(VerifyEmailError(message: Strings.invalidFormat.i18n()));
-    } else if(credential.validateIfPasswdIsEmpty()) {
-      return Left(VerifyEmailError(message: Strings.fillInTheEmailField.i18n()));
-    }
     return await repository.verifyEmailAlreadyUsed(email: credential.email);
   }
 }

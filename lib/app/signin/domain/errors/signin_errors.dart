@@ -1,19 +1,15 @@
-import 'package:expense_manager/app/core/failure.dart';
 
-class CreateAccountError implements Failure {
-  @override
+class CreateAccountError extends Error {
   String? message;
   CreateAccountError({this.message});
 }
 
-class SignInError implements Failure {
-  @override
+class SignInError extends Error {
   String? message;
   SignInError({this.message});
 }
 
-class VerifyEmailError implements Failure {
-  @override
+class VerifyEmailError extends Error {
   String? message;
   VerifyEmailError({this.message});
 }

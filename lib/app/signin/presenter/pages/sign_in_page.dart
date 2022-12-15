@@ -71,7 +71,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ],
               ),
-              VerticalSpace(height: 200),
+              VerticalSpace(height: 40),
               OutlineButton(
                 onTap: () {},
                 text: Strings.loginWithGoogle.i18n(),
