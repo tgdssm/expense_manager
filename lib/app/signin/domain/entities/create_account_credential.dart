@@ -12,7 +12,7 @@ class CreateAccountCredential {
 
   bool validateIfEmailIsEmpty() => email.isEmpty;
 
-  bool validateConfirmPasswd() => passwd == confirmPasswd;
+  bool validateConfirmPasswd() => !(passwd == confirmPasswd);
 
   bool validateIfPasswdIsEmpty() => passwd.isEmpty;
 

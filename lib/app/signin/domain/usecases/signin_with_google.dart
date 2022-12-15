@@ -1,16 +1,15 @@
-import 'package:dartz/dartz.dart';
-import 'package:expense_manager/app/core/failure.dart';
 import 'package:expense_manager/app/signin/domain/repositories/signin_repository.dart';
+import 'package:result/result.dart';
 
 abstract class SignInWithGoogleUseCase {
-  Future<Either<Failure, void>> call();
+  Future<Result<void>> call();
 }
 
 class SignInWithGoogleUseCaseImpl implements SignInWithGoogleUseCase {
   final SignInRepository repository;
   SignInWithGoogleUseCaseImpl(this.repository);
   @override
-  Future<Either<Failure, void>> call() {
+  Future<Result<bool>> call() {
     // TODO: implement call
     throw UnimplementedError();
   }

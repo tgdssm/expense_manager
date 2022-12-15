@@ -7,7 +7,6 @@ import 'package:expense_manager/app/core/widgets/helpers/error_box.dart';
 import 'package:expense_manager/app/core/widgets/helpers/horizontal_space.dart';
 import 'package:expense_manager/app/core/widgets/helpers/vertical_space.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/state_manager.dart';
 import 'package:localization/localization.dart';
 
@@ -78,7 +77,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   return DefaultButton(
                     loading: _controller.loadingButton.value,
                     text: Strings.createAccount.i18n(),
-                    onTap: () async => await _controller.createAccount(),
+                    onTap: () async {
+                      await _controller.createAccount();
+                      print(_controller.credential.passwd);
+                      print(_controller.credential.confirmPasswd);
+                    },
                     width: 325,
                   );
                 }),

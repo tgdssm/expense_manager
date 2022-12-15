@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:expense_manager/app/core/strings.dart';
 import 'package:expense_manager/app/signin/domain/entities/create_account_credential.dart';
 import 'package:expense_manager/app/signin/infra/datasources/signin_datasource.dart';
 import 'package:expense_manager/app/signin/infra/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:localization/localization.dart';
 
 class SignInDatasourceImpl implements SignInDatasource {
   final FirebaseAuth auth;
@@ -40,15 +38,17 @@ class SignInDatasourceImpl implements SignInDatasource {
   @override
   Future<bool> verifyEmailAlreadyUsed({required String email}) async {
     try {
+
       bool emailAlreadyUsed = false;
       final user = await fireStore.collection("Users").where("email", isEqualTo: email.toLowerCase()).get();
-      if(user.docs.first.exists) {
+
+      if(user.docs.isNotEmpty) {
         emailAlreadyUsed = true;
       }
+
       return emailAlreadyUsed;
     } catch(e) {
-      print("dsadsa");
-      throw Exception(Strings.errorCreatingAccount.i18n());
+      throw Exception(e);
     }
   }
 }

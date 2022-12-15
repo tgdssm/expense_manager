@@ -1,5 +1,3 @@
-import 'package:expense_manager/app/core/failure.dart';
-import 'package:dartz/dartz.dart';
 import 'package:expense_manager/app/core/strings.dart';
 import 'package:expense_manager/app/signin/domain/errors/signin_errors.dart';
 import 'package:expense_manager/app/signin/domain/repositories/signin_repository.dart';
@@ -7,6 +5,7 @@ import 'package:expense_manager/app/signin/infra/datasources/signin_datasource.d
 import 'package:expense_manager/app/signin/infra/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:localization/localization.dart';
+import 'package:result/result.dart';
 
 import '../../domain/entities/create_account_credential.dart';
 
@@ -16,30 +15,30 @@ class SignInRepositoryImpl implements SignInRepository {
   SignInRepositoryImpl(this.datasource);
 
   @override
-  Future<Either<Failure, UserModel>> createAccount({
+  Future<Result<UserModel>> createAccount({
     required CreateAccountCredential credential,
   }) async {
     try {
       final result = await datasource.createAccount(credential: credential);
-      return Right(result);
+      return ResultSuccess<UserModel>(result);
     } on FirebaseAuthException catch (e) {
-      return Left(CreateAccountError(message: e.message));
+      return ResultError(CreateAccountError(message: e.message));
     } catch (e) {
-      return Left(CreateAccountError(message: e.toString()));
+      return ResultError(CreateAccountError(message: e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, bool>> verifyEmailAlreadyUsed({
+  Future<Result<bool>> verifyEmailAlreadyUsed({
     required String email,
   }) async {
     try {
       final result = await datasource.verifyEmailAlreadyUsed(email: email);
-      return Right(result);
+      return ResultSuccess<bool>(result);
     } on FirebaseException catch(e){
-      return Left(VerifyEmailError(message: e.message));
+      return ResultError(VerifyEmailError(message: e.message));
     } catch(e) {
-      return Left(VerifyEmailError(message: Strings.errorCreatingAccount.i18n()));
+      return ResultError(VerifyEmailError(message: Strings.errorCreatingAccount.i18n()));
     }
   }
 }

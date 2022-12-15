@@ -18,6 +18,7 @@ abstract class CreateAccountController {
   CreateAccountCredential get credential;
 
   Future<void> createAccount();
+  Future<bool> emailExists();
   void resetControllers();
 }
 
@@ -63,18 +64,29 @@ class CreateAccountControllerImpl implements CreateAccountController {
   Future<void> createAccount() async {
     if(formKey.currentState!.validate()) {
       loadingButton(true);
-      errorMessage.value = "";
-      bool emailAlreadyExists = false;
-      final resultVerifyEmail = await verifyEmailUseCase(credential: credential);
-      resultVerifyEmail.fold((l) => errorMessage.value = l.message!, (r) => emailAlreadyExists = r);
-      if(!emailAlreadyExists) {
-        final resultCreateAccount = await createAccountUseCase(credential: credential);
-        resultCreateAccount.fold((l) => errorMessage.value = l.message!, (r) => null);
-      } else {
-        errorMessage.value = Strings.emailIsAlreadyBeingUsed.i18n();
+      try {
+        if(!(await emailExists())) {
+          await createAccountUseCase(credential: credential);
+        } else {
+          errorMessage.value = Strings.emailIsAlreadyBeingUsed.i18n();
+        }
+      } catch (e) {
+        errorMessage.value = e.toString();
       }
       loadingButton(false);
       // resetControllers();
+    }
+  }
+
+  @override
+  Future<bool> emailExists() async {
+    try {
+      final result = await verifyEmailUseCase(credential: credential);
+      return result.successData;
+    } catch (e) {
+      print(e);
+      errorMessage.value = e.toString();
+      throw Exception(e);
     }
   }
 
@@ -85,7 +97,5 @@ class CreateAccountControllerImpl implements CreateAccountController {
     passwdController.clear();
     confirmPasswdController.clear();
   }
-
-
 
 }
