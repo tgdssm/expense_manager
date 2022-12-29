@@ -2,7 +2,7 @@ import '../result.dart';
 
 abstract class Result<T> {
   T? _success;
-  Error? _error;
+  BaseError? _error;
 
   Result(Object object) {
     if(this is ResultSuccess) {
@@ -10,18 +10,15 @@ abstract class Result<T> {
     }
 
     if(this is ResultError) {
-      _error = object as Error;
+      _error = object as BaseError;
     }
-
-    print("$this");
-    print("$object");
   }
 
   bool get isSuccess => _success != null;
   bool get isError => _error != null;
 
   T get successData => _success!;
-  Error get errorData => _error!;
+  BaseError get errorData => _error!;
 
 }
 

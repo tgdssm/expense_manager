@@ -1,10 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:result/result.dart';
-
-class TestResultError extends Error{
-  String? message;
-  TestResultError({this.message});
-}
+import 'package:result/src/base_error.dart';
 
 void main() {
   late final Result<bool> resultSuccess;
@@ -13,7 +9,7 @@ void main() {
 
   setUp(() {
     resultSuccess = ResultSuccess<bool>(false);
-    resultError = ResultError<TestResultError>(TestResultError(message: "error test"));
+    resultError = ResultError(BaseError(message: "error test"));
   });
 
   group("result tests", () {
@@ -23,9 +19,9 @@ void main() {
       expect(resultSuccess.successData, false);
     });
     test("result error", () {
-      expect(resultError, isA<ResultError<TestResultError>>());
+      expect(resultError, isA<ResultError<BaseError>>());
       expect(resultError.isError, true);
-      expect(resultError.errorData, isA<TestResultError>());
+      expect(resultError.errorData, isA<BaseError>());
     });
   });
 }

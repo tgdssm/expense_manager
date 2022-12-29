@@ -3,6 +3,7 @@ import 'package:expense_manager/app/signin/domain/entities/create_account_creden
 import 'package:expense_manager/app/signin/infra/datasources/create_account_datasource.dart';
 import 'package:expense_manager/app/signin/infra/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:result/result.dart';
 
 class CreateAccountDatasourceImpl implements ICreateAccountDatasource {
   final FirebaseAuth auth;
@@ -30,8 +31,8 @@ class CreateAccountDatasourceImpl implements ICreateAccountDatasource {
       );
       await createUserInFirestore(user);
       return user;
-    } catch (e) {
-      throw Exception(e);
+    } on FirebaseAuthException catch (e) {
+      throw BaseError(message: e.message!);
     }
   }
 
@@ -47,8 +48,8 @@ class CreateAccountDatasourceImpl implements ICreateAccountDatasource {
       }
 
       return emailAlreadyUsed;
-    } catch(e) {
-      throw Exception(e);
+    } on FirebaseException catch(e) {
+      throw BaseError(message: e.message!);
     }
   }
 }

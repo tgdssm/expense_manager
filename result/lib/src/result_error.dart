@@ -1,7 +1,7 @@
 import '../result.dart';
 
 class ResultError<T> extends Result<T> {
-  final Error error;
+  final BaseError error;
   ResultError(this.error) : super(error);
 
 }

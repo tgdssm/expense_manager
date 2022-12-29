@@ -1,5 +1,5 @@
+import 'package:result/src/base_error.dart';
 import 'package:expense_manager/app/core/strings.dart';
-import 'package:expense_manager/app/signin/domain/errors/login_errors.dart';
 import 'package:expense_manager/app/signin/domain/repositories/create_account_repository.dart';
 import 'package:expense_manager/app/signin/infra/datasources/create_account_datasource.dart';
 import 'package:expense_manager/app/signin/infra/models/user_model.dart';
@@ -22,9 +22,9 @@ class CreateAccountRepositoryImpl implements ICreateAccountRepository {
       final result = await datasource.createAccount(credential: credential);
       return ResultSuccess<UserModel>(result);
     } on FirebaseAuthException catch (e) {
-      return ResultError(CreateAccountError(message: e.message));
+      return ResultError(BaseError(message: e.message!));
     } catch (e) {
-      return ResultError(CreateAccountError(message: e.toString()));
+      return ResultError(BaseError(message: e.toString()));
     }
   }
 
@@ -36,9 +36,9 @@ class CreateAccountRepositoryImpl implements ICreateAccountRepository {
       final result = await datasource.verifyEmailAlreadyUsed(email: email);
       return ResultSuccess<bool>(result);
     } on FirebaseException catch(e){
-      return ResultError(VerifyEmailError(message: e.message));
+      return ResultError(BaseError(message: e.message!));
     } catch(e) {
-      return ResultError(VerifyEmailError(message: Strings.errorCreatingAccount.i18n()));
+      return ResultError(BaseError(message: Strings.errorCreatingAccount.i18n()));
     }
   }
 }

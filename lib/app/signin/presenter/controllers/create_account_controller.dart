@@ -1,5 +1,4 @@
 import 'package:expense_manager/app/core/strings.dart';
-import 'package:expense_manager/app/signin/domain/errors/login_errors.dart';
 import 'package:expense_manager/app/signin/domain/usecases/create_account.dart';
 import 'package:expense_manager/app/signin/domain/usecases/verify_email.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +87,7 @@ class CreateAccountControllerImpl implements CreateAccountController {
         errorMessage.value = "";
         resetControllers();
       } else {
-        errorMessage.value = (result.errorData as CreateAccountError).message!;
+        errorMessage.value = result.errorData.message;
       }
     } catch(e) {
       errorMessage.value = e.toString();
@@ -103,7 +102,7 @@ class CreateAccountControllerImpl implements CreateAccountController {
         errorMessage.value = "";
         emailExists = result.successData;
       } else {
-        errorMessage.value = (result.errorData as VerifyEmailError).message!;
+        errorMessage.value = result.errorData.message;
       }
     } catch (e) {
       errorMessage.value = e.toString();
