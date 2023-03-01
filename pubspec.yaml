@@ -36,7 +36,9 @@ dependencies:
   email_validator: ^2.1.17
   faker: ^2.0.0
   result:
-    path: ./result
+    git:
+      url: https://github.com/tgdssm/result.git
+      ref: master
 
 dev_dependencies:
   flutter_test:
