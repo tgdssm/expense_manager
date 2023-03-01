@@ -1,8 +1,9 @@
-import 'package:expense_manager/app/core/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
+import '../design_system/design_system_export.dart';
+
 
 class AppWidget extends StatefulWidget {
   const AppWidget({Key? key}) : super(key: key);
