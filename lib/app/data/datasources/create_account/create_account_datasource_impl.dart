@@ -11,11 +11,6 @@ class CreateAccountDatasourceImpl implements ICreateAccountDatasource {
   final FirebaseFirestore fireStore;
   CreateAccountDatasourceImpl(this.auth, this.fireStore);
 
-  Future<void> createUserInFirestore(UserModel user) async {
-    final userCollection = fireStore.collection("Users");
-    await userCollection.doc(user.id).set(user.toMap());
-  }
-
   @override
   Future<UserModel> createAccount({
     required AccountModel account,
@@ -30,10 +25,13 @@ class CreateAccountDatasourceImpl implements ICreateAccountDatasource {
         account.email,
         userCredential.user!.uid,
       );
-      await createUserInFirestore(user);
+      final userCollection = fireStore.collection("Users");
+      await userCollection.doc(user.id).set(user.toMap());
       return user;
     } on FirebaseAuthException catch (e) {
       throw BaseError(message: e.message!);
+    } catch(e) {
+      throw BaseError(message: e.toString());
     }
   }
 
