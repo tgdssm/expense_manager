@@ -26,5 +26,6 @@
     "passwordsDoNotMatch": "Passwords do not match",
     "fillInThePasswordField": "Fill in the password field",
     "fillInTheEmailField": "Fill in the email field",
+    "fillInTheNameField": "Fill in the name field",
     "invalidFormat": "Invalid format"
 }

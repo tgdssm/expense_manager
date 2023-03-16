@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
@@ -41,6 +40,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     style: TextStyles.heading1,
                   ),
                 ),
+                const VerticalSpace(height: 25),
+                buildTextFieldName(),
                 const VerticalSpace(height: 25),
                 buildTextFieldEmail(),
                 const VerticalSpace(height: 25),
@@ -145,6 +146,22 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         if (_controller.validateIfEmailIsEmpty()) {
           return Strings.fillInTheEmailField.i18n();
         } else if (!_controller.validateEmailFormat()) {
+          return Strings.invalidFormat.i18n();
+        }
+        return null;
+      },
+    );
+  }
+
+  DefaultTextField buildTextFieldName() {
+    return DefaultTextField(
+      controller: _controller.nameController,
+      label: Strings.email.i18n(),
+      validator: (_) {
+        if (_controller.validateIfNameIsEmpty()) {
+          return Strings.fillInTheNameField.i18n();
+        } else if (_controller.validateNameFormat() ||
+            _controller.validateNameLength()) {
           return Strings.invalidFormat.i18n();
         }
         return null;
