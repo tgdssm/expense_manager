@@ -55,7 +55,6 @@ class SignInControllerImpl implements SignInController {
           passwd.text,
         );
         if (result.isSuccess) {
-          print(result.successData.email);
         } else {
           errorMessage.value = result.errorData.message;
         }
@@ -72,7 +71,6 @@ class SignInControllerImpl implements SignInController {
     try {
       final result = await signInWithGoogleUseCase();
       if (result.isSuccess) {
-        print(result.successData.email);
       } else {
         errorMessage.value = result.errorData.message;
       }

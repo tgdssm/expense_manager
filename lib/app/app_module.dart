@@ -55,6 +55,9 @@ class AppModule extends Module {
         Bind.singleton<ISignInDatasource>(
           (i) => SignInDatasourceImpl(i(), i(), i()),
         ),
+        Bind.singleton<IForgotPasswordDatasource>(
+          (i) => ForgotPasswordDatasourceImpl(i()),
+        ),
 
         // Repositories
         Bind.singleton<ICreateAccountRepository>(
@@ -62,6 +65,9 @@ class AppModule extends Module {
         ),
         Bind.singleton<ISignInRepository>(
           (i) => SignInRepositoryImpl(i()),
+        ),
+        Bind.singleton<IForgotPasswordRepository>(
+          (i) => ForgotPasswordRepositoryImpl(i()),
         ),
 
         // Use cases
@@ -77,6 +83,9 @@ class AppModule extends Module {
         Bind.singleton<ISignInWithGoogleUseCase>(
           (i) => SignInWithGoogleUseCaseImpl(i()),
         ),
+        Bind.singleton<IForgotPasswordUseCase>(
+          (i) => ForgotPasswordUseCaseImpl(i()),
+        ),
 
         // Controllers
         Bind.singleton<IntroductionController>(
@@ -85,7 +94,6 @@ class AppModule extends Module {
         Bind.singleton<CreateAccountController>(
           (i) => CreateAccountControllerImpl(i(), i()),
         ),
-
         Bind.singleton<SignInController>(
           (i) => SignInControllerImpl(i(), i()),
         ),
