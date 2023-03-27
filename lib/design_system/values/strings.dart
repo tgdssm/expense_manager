@@ -25,6 +25,7 @@ class Strings {
   static const passwordsDoNotMatch = "passwordsDoNotMatch";
   static const fillInThePasswordField = "fillInThePasswordField";
   static const fillInTheEmailField = "fillInTheEmailField";
+  static const fillInTheNameField = "fillInTheNameField";
   static const invalidFormat = "invalidFormat";
 
 

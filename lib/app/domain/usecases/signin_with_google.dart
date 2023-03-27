@@ -1,19 +1,17 @@
+import 'package:expense_manager/app/domain/entities/user_entity.dart';
 import 'package:result/result.dart';
 
 import '../repositories/repositories.dart';
 
-abstract class SignInWithGoogleUseCase {
-  Future<Result<void>> call();
+abstract class ISignInWithGoogleUseCase {
+  Future<Result<UserEntity>> call();
 }
 
-class SignInWithGoogleUseCaseImpl implements SignInWithGoogleUseCase {
-  final ICreateAccountRepository repository;
+class SignInWithGoogleUseCaseImpl implements ISignInWithGoogleUseCase {
+  final ISignInRepository repository;
   SignInWithGoogleUseCaseImpl(this.repository);
   @override
-  Future<Result<bool>> call() {
-    // TODO: implement call
-    throw UnimplementedError();
+  Future<Result<UserEntity>> call() async {
+    return await repository.signInWithGoogle();
   }
-
 }
-

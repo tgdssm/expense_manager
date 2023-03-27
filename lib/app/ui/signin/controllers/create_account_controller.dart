@@ -22,6 +22,9 @@ abstract class CreateAccountController {
   Future<void> createAccount();
   Future<void> fEmailExists();
   void resetControllers();
+  bool validateIfNameIsEmpty();
+  bool validateNameFormat();
+  bool validateNameLength();
   bool validateEmailFormat();
   bool validateIfEmailIsEmpty();
   bool validateConfirmPasswd();
@@ -125,6 +128,8 @@ class CreateAccountControllerImpl implements CreateAccountController {
   }
 
   @override
+  bool validateIfNameIsEmpty() => account.name.isEmpty;
+  @override
   bool validateEmailFormat() => EmailValidator.validate(account.email);
   @override
   bool validateIfEmailIsEmpty() => account.email.isEmpty;
@@ -134,4 +139,8 @@ class CreateAccountControllerImpl implements CreateAccountController {
   bool validateIfPasswdIsEmpty() => account.passwd.isEmpty;
   @override
   bool validateIfConfirmPasswdIsEmpty() => account.confirmPasswd.isEmpty;
+  @override
+  bool validateNameFormat() => RegExp('[^A-Za-z]').hasMatch(account.name);
+  @override
+  bool validateNameLength() => account.name.length < 3;
 }
