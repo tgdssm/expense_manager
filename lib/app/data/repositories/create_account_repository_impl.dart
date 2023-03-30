@@ -18,13 +18,19 @@ class CreateAccountRepositoryImpl implements ICreateAccountRepository {
     required AccountEntity account,
   }) async {
     try {
-      final result =
-          await datasource.createAccount(account: account as AccountModel);
+      final result = await datasource.createAccount(
+        account: AccountModel(
+          account.name,
+          account.email,
+          account.passwd,
+          account.confirmPasswd,
+        ),
+      );
       return ResultSuccess<UserEntity>(result);
     } on FirebaseAuthException catch (e) {
-      return ResultError<BaseError>(BaseError(message: e.message!));
-    } catch (e) {
-      return ResultError<BaseError>(BaseError(message: e.toString()));
+      return ResultError(BaseError(message: e.message!));
+    } on BaseError catch (e) {
+      return ResultError(BaseError(message: e.message));
     }
   }
 

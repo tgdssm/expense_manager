@@ -25,22 +25,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             key: _controller.formKey,
             child: ListView(
               children: [
-                const VerticalSpace(height: 40),
-                Container(
-                  width: 325,
-                  alignment: Alignment.centerLeft,
-                  child: const DefaultBackButton(),
-                ),
-                const VerticalSpace(height: 40),
-                Container(
-                  width: 325,
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    Strings.createAccount.i18n(),
-                    style: TextStyles.heading1,
-                  ),
-                ),
-                const VerticalSpace(height: 25),
+                DefaultAppBar(title: Strings.createAccount.i18n()),
                 buildTextFieldName(),
                 const VerticalSpace(height: 25),
                 buildTextFieldEmail(),
@@ -60,13 +45,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         )
                       : const SizedBox(),
                 ),
-                OutlineButton(
-                  onTap: () {},
-                  text: Strings.loginWithGoogle.i18n(),
-                  iconPath: AssetsPath.google,
-                  width: 325,
-                ),
-                const VerticalSpace(height: 22),
                 ValueListenableBuilder(
                     valueListenable: _controller.loadingButton,
                     builder: (context, value, child) {
@@ -156,7 +134,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   DefaultTextField buildTextFieldName() {
     return DefaultTextField(
       controller: _controller.nameController,
-      label: Strings.email.i18n(),
+      label: Strings.name.i18n(),
       validator: (_) {
         if (_controller.validateIfNameIsEmpty()) {
           return Strings.fillInTheNameField.i18n();

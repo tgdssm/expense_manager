@@ -27,5 +27,6 @@
     "fillInThePasswordField": "Preencha o campo de senha",
     "fillInTheEmailField": "Preencha o campo de email",
     "fillInTheNameField": "Preencha o campo de nome",
-    "invalidFormat": "Formato Inválido"
+    "invalidFormat": "Formato Inválido",
+    "selectEmail": "Selecione um email"
 }

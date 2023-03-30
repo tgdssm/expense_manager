@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_manager/app/data/datasources/datasources.dart';
 import 'package:expense_manager/app/data/models/user_model.dart';
+import 'package:expense_manager/design_system/design_system_export.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:localization/localization.dart';
 import 'package:result/result.dart';
 
 class SignInDatasourceImpl implements ISignInDatasource {
@@ -41,12 +43,29 @@ class SignInDatasourceImpl implements ISignInDatasource {
   Future<UserModel> signInWithGoogle() async {
     try {
       final account = await googleSigIn.signIn();
-
-      final user = await fireStore
-          .collection('Users')
-          .where('id', isEqualTo: account?.id)
-          .get();
-      return UserModel.fromMap(user.docs.first.data());
+      if (account != null) {
+        final googleAuth = await account.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        final result = await auth.signInWithCredential(credential);
+        final user = UserModel(
+          result.user!.uid,
+          account.displayName!,
+          account.email,
+        );
+        final hasUser = await fireStore
+            .collection('Users')
+            .where('id', isEqualTo: user.id)
+            .get();
+        if (hasUser.docs.isEmpty) {
+          final userCollection = fireStore.collection("Users");
+          await userCollection.doc(user.id).set(user.toMap());
+        }
+        return user;
+      }
+      throw BaseError(message: Strings.selectEmail.i18n());
     } on FirebaseAuthException catch (e) {
       throw BaseError(message: e.message!);
     } catch (e) {

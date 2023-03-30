@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "80750537612-7a81a455bh8tpal4ifimc4kg31851k89.apps.googleusercontent.com",
+          "client_id": "80750537612-8i68oj325h9is0u2ufiutuc9epvfsdve.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.expense_manager",
-            "certificate_hash": "5224bb96fc137ac76817f2e7ecb4cfcd6e28e940"
+            "certificate_hash": "e790f617c41b6fafc73e6f2e3f79babe4c411a3f"
           }
         },
         {

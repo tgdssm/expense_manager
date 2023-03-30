@@ -24,22 +24,7 @@ class _SignInPageState extends State<SignInPage> {
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: ListView(
               children: [
-                const VerticalSpace(height: 40),
-                Container(
-                  width: 325,
-                  alignment: Alignment.centerLeft,
-                  child: const DefaultBackButton(),
-                ),
-                const VerticalSpace(height: 40),
-                Container(
-                  width: 325,
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    Strings.login.i18n(),
-                    style: TextStyles.heading1,
-                  ),
-                ),
-                const VerticalSpace(height: 40),
+                DefaultAppBar(title: Strings.login.i18n()),
                 buildTextFieldEmail(),
                 const VerticalSpace(height: 40),
                 buildTextFieldPasswd(),

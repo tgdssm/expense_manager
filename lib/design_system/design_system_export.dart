@@ -11,6 +11,7 @@ export 'components/inputs/text_styles.dart';
 export 'components/others/error_box.dart';
 export 'components/others/horizontal_space.dart';
 export 'components/others/vertical_space.dart';
+export 'components/others/default_app_bar.dart';
 
 //Themes
 export 'themes/app_colors.dart';
