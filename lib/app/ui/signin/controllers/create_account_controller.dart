@@ -3,6 +3,7 @@ import 'package:expense_manager/app/domain/entities/account_entity.dart';
 import 'package:expense_manager/app/domain/usecases/create_account.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
+import 'package:result/result.dart';
 
 import '../../../../design_system/design_system_export.dart';
 import '../../../domain/usecases/verify_email.dart';
@@ -68,7 +69,7 @@ class CreateAccountControllerImpl implements CreateAccountController {
   @override
   AccountEntity get account => AccountEntity(
         nameController.text,
-        emailController.text,
+        emailController.text.trim(),
         passwdController.text,
         confirmPasswdController.text,
       );
@@ -98,8 +99,8 @@ class CreateAccountControllerImpl implements CreateAccountController {
       } else {
         errorMessage.value = result.errorData.message;
       }
-    } catch (e) {
-      errorMessage.value = e.toString();
+    } on BaseError catch (e) {
+      errorMessage.value = e.message;
     }
   }
 
@@ -113,9 +114,8 @@ class CreateAccountControllerImpl implements CreateAccountController {
       } else {
         errorMessage.value = result.errorData.message;
       }
-    } catch (e) {
-      errorMessage.value = e.toString();
-      throw Exception(e);
+    } on BaseError catch (e) {
+      errorMessage.value = e.message;
     }
   }
 
@@ -140,7 +140,7 @@ class CreateAccountControllerImpl implements CreateAccountController {
   @override
   bool validateIfConfirmPasswdIsEmpty() => account.confirmPasswd.isEmpty;
   @override
-  bool validateNameFormat() => RegExp('[^A-Za-z]').hasMatch(account.name);
+  bool validateNameFormat() => account.name.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
   @override
   bool validateNameLength() => account.name.length < 3;
 }

@@ -21,9 +21,9 @@ class CreateAccountDatasourceImpl implements ICreateAccountDatasource {
         password: account.passwd,
       );
       final user = UserModel(
+        userCredential.user!.uid,
         account.name,
         account.email,
-        userCredential.user!.uid,
       );
       final userCollection = fireStore.collection("Users");
       await userCollection.doc(user.id).set(user.toMap());
@@ -51,6 +51,8 @@ class CreateAccountDatasourceImpl implements ICreateAccountDatasource {
       return emailAlreadyUsed;
     } on FirebaseException catch (e) {
       throw BaseError(message: e.message!);
+    } catch(e) {
+      throw BaseError(message: e.toString());
     }
   }
 }
