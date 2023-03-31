@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_manager/app/data/datasources/datasources.dart';
 import 'package:expense_manager/app/data/repositories/repositories.dart';
+import 'package:expense_manager/app/domain/entities/user_entity.dart';
 import 'package:expense_manager/app/domain/repositories/repositories.dart';
 import 'package:expense_manager/app/domain/usecases/usecases.dart';
 import 'package:expense_manager/app/ui/introduction/controllers/introduction_controller.dart';
@@ -13,6 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../core/core_export.dart';
+import 'ui/income/pages/income_page.dart';
 
 class AppModule extends Module {
   @override
@@ -27,9 +29,14 @@ class AppModule extends Module {
       child: (context, args) => const CreateAccountPage(),
     ),
     ChildRoute(
-      Routes.signin.name,
+      Routes.signIn.name,
       transition: TransitionType.leftToRight,
       child: (context, args) => const SignInPage(),
+    ),
+    ChildRoute(
+      Routes.income.name,
+      transition: TransitionType.leftToRight,
+      child: (context, args) => IncomePage(currentUser: args.data),
     ),
   ];
 
@@ -49,52 +56,52 @@ class AppModule extends Module {
         ),
 
         // Datasource
-        Bind.singleton<ICreateAccountDatasource>(
+        Bind.factory<ICreateAccountDatasource>(
           (i) => CreateAccountDatasourceImpl(i(), i()),
         ),
-        Bind.singleton<ISignInDatasource>(
+        Bind.factory<ISignInDatasource>(
           (i) => SignInDatasourceImpl(i(), i(), i()),
         ),
-        Bind.singleton<IForgotPasswordDatasource>(
+        Bind.factory<IForgotPasswordDatasource>(
           (i) => ForgotPasswordDatasourceImpl(i()),
         ),
 
         // Repositories
-        Bind.singleton<ICreateAccountRepository>(
+        Bind.factory<ICreateAccountRepository>(
           (i) => CreateAccountRepositoryImpl(i()),
         ),
-        Bind.singleton<ISignInRepository>(
+        Bind.factory<ISignInRepository>(
           (i) => SignInRepositoryImpl(i()),
         ),
-        Bind.singleton<IForgotPasswordRepository>(
+        Bind.factory<IForgotPasswordRepository>(
           (i) => ForgotPasswordRepositoryImpl(i()),
         ),
 
         // Use cases
-        Bind.singleton<ICreateAccountUseCase>(
+        Bind.factory<ICreateAccountUseCase>(
           (i) => CreateAccountUseCaseImpl(i()),
         ),
-        Bind.singleton<IVerifyEmailUseCase>(
+        Bind.factory<IVerifyEmailUseCase>(
           (i) => VerifyEmailUseCaseImpl(i()),
         ),
-        Bind.singleton<ISignInWithEmailAndPasswdUseCase>(
+        Bind.factory<ISignInWithEmailAndPasswdUseCase>(
           (i) => SignInWithEmailAndPasswdUseCaseImpl(i()),
         ),
-        Bind.singleton<ISignInWithGoogleUseCase>(
+        Bind.factory<ISignInWithGoogleUseCase>(
           (i) => SignInWithGoogleUseCaseImpl(i()),
         ),
-        Bind.singleton<IForgotPasswordUseCase>(
+        Bind.factory<IForgotPasswordUseCase>(
           (i) => ForgotPasswordUseCaseImpl(i()),
         ),
 
         // Controllers
-        Bind.singleton<IntroductionController>(
+        Bind.factory<IntroductionController>(
           (i) => IntroductionControllerImpl(),
         ),
-        Bind.singleton<CreateAccountController>(
+        Bind.factory<CreateAccountController>(
           (i) => CreateAccountControllerImpl(i(), i()),
         ),
-        Bind.singleton<SignInController>(
+        Bind.factory<SignInController>(
           (i) => SignInControllerImpl(i(), i()),
         ),
       ];

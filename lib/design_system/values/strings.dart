@@ -27,7 +27,9 @@ class Strings {
   static const fillInTheEmailField = "fillInTheEmailField";
   static const fillInTheNameField = "fillInTheNameField";
   static const invalidFormat = "invalidFormat";
-
+  static const whatIsYourIncome = "whatIsYourIncome";
+  static const expensesAreAboveYourIncome = "expensesAreAboveYourIncome";
+  static const proceed = "proceed";
 
   // Errors
   static const errorCreatingAccount = "errorCreatingAccount";

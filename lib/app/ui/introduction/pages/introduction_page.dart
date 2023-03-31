@@ -76,7 +76,7 @@ class _IntroductionPageState extends State<IntroductionPage>
                 const HorizontalSpace(width: 21),
                 OutlineButton(
                   text: Strings.login.i18n(),
-                  onTap: () => Modular.to.pushNamed(Routes.signin.name),
+                  onTap: () => Modular.to.pushNamed(Routes.signIn.name),
                 ),
               ],
             ),

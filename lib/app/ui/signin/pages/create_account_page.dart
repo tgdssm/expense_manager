@@ -14,6 +14,13 @@ class CreateAccountPage extends StatefulWidget {
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
   final _controller = injection<CreateAccountController>();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.resetControllers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
