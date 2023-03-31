@@ -1,15 +1,17 @@
 enum Routes {
   initial,
-  signin,
+  signIn,
   createAccount,
   forgotPassword,
+  income,
 }
 
 const routesMapping = {
   Routes.initial: "/",
-  Routes.signin: "/signin/",
-  Routes.createAccount: "/create-account/",
-  Routes.forgotPassword: "forgot-password/",
+  Routes.signIn: "/sign-in",
+  Routes.createAccount: "/create-account",
+  Routes.forgotPassword: "/forgot-password",
+  Routes.income: "/income"
 };
 
 extension RoutesExtension on Routes {

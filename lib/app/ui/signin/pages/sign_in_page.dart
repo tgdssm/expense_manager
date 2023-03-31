@@ -13,6 +13,13 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   final _controller = injection<SignInController>();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.resetControllers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

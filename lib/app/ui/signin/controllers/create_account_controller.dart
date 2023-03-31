@@ -1,7 +1,9 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:expense_manager/app/domain/entities/account_entity.dart';
 import 'package:expense_manager/app/domain/usecases/create_account.dart';
+import 'package:expense_manager/core/core_export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 import 'package:result/result.dart';
 
@@ -94,7 +96,10 @@ class CreateAccountControllerImpl implements CreateAccountController {
     try {
       final result = await createAccountUseCase(account: account);
       if (result.isSuccess) {
-        errorMessage.value = "";
+        Modular.to.pushReplacementNamed(
+          Routes.income.name,
+          arguments: result.successData,
+        );
         resetControllers();
       } else {
         errorMessage.value = result.errorData.message;
@@ -110,7 +115,7 @@ class CreateAccountControllerImpl implements CreateAccountController {
       final result = await verifyEmailUseCase(email: account.email);
       if (result.isSuccess) {
         errorMessage.value = "";
-        emailExists = result.successData as bool;
+        emailExists = result.successData;
       } else {
         errorMessage.value = result.errorData.message;
       }
@@ -125,6 +130,8 @@ class CreateAccountControllerImpl implements CreateAccountController {
     emailController.clear();
     passwdController.clear();
     confirmPasswdController.clear();
+    errorMessage.value = '';
+    loadingButton.value = false;
   }
 
   @override
@@ -140,7 +147,8 @@ class CreateAccountControllerImpl implements CreateAccountController {
   @override
   bool validateIfConfirmPasswdIsEmpty() => account.confirmPasswd.isEmpty;
   @override
-  bool validateNameFormat() => account.name.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+  bool validateNameFormat() =>
+      account.name.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
   @override
   bool validateNameLength() => account.name.length < 3;
 }

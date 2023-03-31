@@ -1,6 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:expense_manager/app/domain/usecases/usecases.dart';
+import 'package:expense_manager/core/core_export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 abstract class SignInController {
   abstract GlobalKey<FormState> formKey;
@@ -13,6 +15,7 @@ abstract class SignInController {
   bool validateEmailFormat();
   Future<void> signInWithGoogle();
   Future<void> signInWithEmailAndPasswd();
+  void resetControllers();
 }
 
 class SignInControllerImpl implements SignInController {
@@ -55,6 +58,10 @@ class SignInControllerImpl implements SignInController {
           passwd.text,
         );
         if (result.isSuccess) {
+          Modular.to.pushReplacementNamed(
+            Routes.income.name,
+            arguments: result.successData,
+          );
         } else {
           errorMessage.value = result.errorData.message;
         }
@@ -71,12 +78,24 @@ class SignInControllerImpl implements SignInController {
     try {
       final result = await signInWithGoogleUseCase();
       if (result.isSuccess) {
+        Modular.to.pushReplacementNamed(
+          Routes.income.name,
+          arguments: result.successData,
+        );
       } else {
         errorMessage.value = result.errorData.message;
       }
     } catch (e) {
       errorMessage.value = e.toString();
     }
+    loadingButton.value = false;
+  }
+
+  @override
+  void resetControllers() {
+    email.clear();
+    passwd.clear();
+    errorMessage.value = '';
     loadingButton.value = false;
   }
 }

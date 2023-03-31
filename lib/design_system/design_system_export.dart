@@ -6,6 +6,7 @@ export 'components/buttons/outline_button.dart';
 //Inputs
 export 'components/inputs/default_text_field.dart';
 export 'components/inputs/text_styles.dart';
+export 'components/inputs/default_keyboard.dart';
 
 // Others
 export 'components/others/error_box.dart';

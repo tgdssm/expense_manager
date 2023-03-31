@@ -14,7 +14,7 @@ class CreateAccountRepositoryImpl implements ICreateAccountRepository {
   CreateAccountRepositoryImpl(this.datasource);
 
   @override
-  Future<Result> createAccount({
+  Future<Result<UserEntity>> createAccount({
     required AccountEntity account,
   }) async {
     try {
@@ -35,16 +35,16 @@ class CreateAccountRepositoryImpl implements ICreateAccountRepository {
   }
 
   @override
-  Future<Result> verifyEmailAlreadyUsed({
+  Future<Result<bool>> verifyEmailAlreadyUsed({
     required String email,
   }) async {
     try {
       final result = await datasource.verifyEmailAlreadyUsed(email: email);
       return ResultSuccess<bool>(result);
     } on FirebaseException catch (e) {
-      return ResultError<BaseError>(BaseError(message: e.message!));
-    } catch (e) {
-      return ResultError<BaseError>(
+      return ResultError(BaseError(message: e.message!));
+    } on BaseError catch (e) {
+      return ResultError(
           BaseError(message: Strings.errorCreatingAccount.i18n()));
     }
   }
