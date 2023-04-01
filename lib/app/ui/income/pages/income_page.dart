@@ -24,7 +24,7 @@ class _IncomePageState extends State<IncomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Form(
             child: ListView(
@@ -50,7 +50,7 @@ class _IncomePageState extends State<IncomePage> {
                 const VerticalSpace(height: 40),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: DefaultButton(text: Strings.proceed, onTap: () {}),
+                  child: DefaultButton(text: Strings.proceed.i18n(), onTap: () {}),
                 ),
                 // ValueListenableBuilder(
                 //     valueListenable: _controller.loadingButton,
