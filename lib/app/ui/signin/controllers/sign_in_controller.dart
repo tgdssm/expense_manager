@@ -60,7 +60,6 @@ class SignInControllerImpl implements SignInController {
         if (result.isSuccess) {
           Modular.to.pushReplacementNamed(
             Routes.income.name,
-            arguments: result.successData,
           );
         } else {
           errorMessage.value = result.errorData.message;
@@ -80,7 +79,6 @@ class SignInControllerImpl implements SignInController {
       if (result.isSuccess) {
         Modular.to.pushReplacementNamed(
           Routes.income.name,
-          arguments: result.successData,
         );
       } else {
         errorMessage.value = result.errorData.message;

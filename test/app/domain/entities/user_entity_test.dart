@@ -6,6 +6,7 @@ void main() {
     '@id',
     'Thalisson',
     'thalisson@gmail.com',
+    0.0,
   );
   group('[DOMAIN] - AccountEntity', () {
     test('Attr', () {

@@ -98,7 +98,6 @@ class CreateAccountControllerImpl implements CreateAccountController {
       if (result.isSuccess) {
         Modular.to.pushReplacementNamed(
           Routes.income.name,
-          arguments: result.successData,
         );
         resetControllers();
       } else {

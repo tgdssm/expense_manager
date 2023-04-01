@@ -1,13 +1,13 @@
 import 'package:expense_manager/app/domain/entities/user_entity.dart';
+import 'package:expense_manager/core/core_export.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import '../../../../design_system/design_system_export.dart';
 
 class IncomePage extends StatefulWidget {
-  final UserEntity currentUser;
   const IncomePage({
     Key? key,
-    required this.currentUser,
   }) : super(key: key);
 
   @override
@@ -15,6 +15,7 @@ class IncomePage extends StatefulWidget {
 }
 
 class _IncomePageState extends State<IncomePage> {
+
   @override
   void dispose() {
     super.dispose();
@@ -46,7 +47,11 @@ class _IncomePageState extends State<IncomePage> {
                   ),
                 ),
                 const VerticalSpace(height: 40),
-                const DefaultKeyboard(),
+                DefaultKeyboard(
+                  value: (value) {
+                    print(value);
+                  },
+                ),
                 const VerticalSpace(height: 40),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),

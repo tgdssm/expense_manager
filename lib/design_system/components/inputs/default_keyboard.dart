@@ -4,10 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
 class DefaultKeyboard extends StatefulWidget {
-  final Color incomeColor;
+  final ValueChanged<double> value;
+  final Color valueColor;
   const DefaultKeyboard({
     Key? key,
-    this.incomeColor = AppColors.primaryColor,
+    required this.value,
+    this.valueColor = AppColors.primaryColor,
   }) : super(key: key);
 
   @override
@@ -28,14 +30,17 @@ class _DefaultKeyboardState extends State<DefaultKeyboard> {
           valueListenable: income,
           builder: (context, value, child) {
             if (value.isEmpty) {
+              widget.value(0);
               return _buildShowIncome(
                 "0,00",
                 AppColors.lightGrey,
               );
             } else {
+              widget.value(double.parse(
+                  income.value.replaceAll('.', '').replaceFirst(',', '.')));
               return _buildShowIncome(
                 value,
-                widget.incomeColor,
+                widget.valueColor,
               );
             }
           },
@@ -135,21 +140,21 @@ class _DefaultKeyboardState extends State<DefaultKeyboard> {
     );
   }
 
-  Row _buildShowIncome(String value, Color incomeColor) {
+  Row _buildShowIncome(String value, Color valueColor) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           "R\$",
           style: TextStyles.body1.copyWith(
-            color: incomeColor,
+            color: valueColor,
           ),
         ),
         const HorizontalSpace(width: 8),
         Text(
           value,
           style: TextStyles.heading2.copyWith(
-            color: incomeColor,
+            color: valueColor,
           ),
         ),
       ],

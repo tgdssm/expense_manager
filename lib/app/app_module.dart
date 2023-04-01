@@ -36,7 +36,7 @@ class AppModule extends Module {
     ChildRoute(
       Routes.income.name,
       transition: TransitionType.leftToRight,
-      child: (context, args) => IncomePage(currentUser: args.data),
+      child: (context, args) => const IncomePage(),
     ),
   ];
 

@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "80750537612-hu1llb8gu9fmsv5tu4hlq4dfttpr36nv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.expense_manager",
+            "certificate_hash": "ff2ce6f56fb7d768a65de4e7a7ae02046edd8d81"
+          }
+        },
+        {
           "client_id": "80750537612-g0eut67il10gfgsl2f18pjq5eo6cuigp.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -24,6 +24,7 @@ class CreateAccountDatasourceImpl implements ICreateAccountDatasource {
         userCredential.user!.uid,
         account.name,
         account.email,
+        0.0,
       );
       final userCollection = fireStore.collection("Users");
       await userCollection.doc(user.id).set(user.toMap());
