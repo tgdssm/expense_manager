@@ -1,7 +1,6 @@
 import 'package:expense_manager/app/data/models/account_model.dart';
 import 'package:expense_manager/app/domain/entities/account_entity.dart';
 import 'package:expense_manager/app/domain/entities/user_entity.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:localization/localization.dart';
 import 'package:result/result.dart';
 import '../../../design_system/design_system_export.dart';
@@ -27,10 +26,10 @@ class CreateAccountRepositoryImpl implements ICreateAccountRepository {
         ),
       );
       return ResultSuccess<UserEntity>(result);
-    } on FirebaseAuthException catch (e) {
-      return ResultError(BaseError(message: e.message!));
     } on BaseError catch (e) {
       return ResultError(BaseError(message: e.message));
+    } catch (e) {
+      return ResultError(BaseError(message: e.toString()));
     }
   }
 
@@ -41,11 +40,11 @@ class CreateAccountRepositoryImpl implements ICreateAccountRepository {
     try {
       final result = await datasource.verifyEmailAlreadyUsed(email: email);
       return ResultSuccess<bool>(result);
-    } on FirebaseException catch (e) {
-      return ResultError(BaseError(message: e.message!));
     } on BaseError catch (e) {
       return ResultError(
           BaseError(message: Strings.errorCreatingAccount.i18n()));
+    } catch (e) {
+      return ResultError(BaseError(message: e.toString()));
     }
   }
 }

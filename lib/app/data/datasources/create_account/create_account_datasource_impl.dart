@@ -5,7 +5,6 @@ import 'package:expense_manager/app/data/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:result/result.dart';
 
-
 class CreateAccountDatasourceImpl implements ICreateAccountDatasource {
   final FirebaseAuth auth;
   final FirebaseFirestore fireStore;
@@ -31,7 +30,7 @@ class CreateAccountDatasourceImpl implements ICreateAccountDatasource {
       return user;
     } on FirebaseAuthException catch (e) {
       throw BaseError(message: e.message!);
-    } catch(e) {
+    } catch (e) {
       throw BaseError(message: e.toString());
     }
   }
@@ -52,7 +51,7 @@ class CreateAccountDatasourceImpl implements ICreateAccountDatasource {
       return emailAlreadyUsed;
     } on FirebaseException catch (e) {
       throw BaseError(message: e.message!);
-    } catch(e) {
+    } catch (e) {
       throw BaseError(message: e.toString());
     }
   }

@@ -12,5 +12,4 @@ class ForgotPasswordUseCaseImpl implements IForgotPasswordUseCase {
   Future<Result<void>> call(String email) async {
     return repository(email);
   }
-
 }

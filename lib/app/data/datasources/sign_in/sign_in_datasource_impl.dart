@@ -52,13 +52,18 @@ class SignInDatasourceImpl implements ISignInDatasource {
         final result = await auth.signInWithCredential(credential);
         final hasUser = await fireStore
             .collection('Users')
-            .where('id', isEqualTo: result.user!.uid,)
+            .where(
+              'id',
+              isEqualTo: result.user!.uid,
+            )
             .get();
         final user = UserModel(
           result.user!.uid,
           account.displayName!,
           account.email,
-          hasUser.docs.isEmpty ? 0.0 : hasUser.docs.first.get('income').toDouble(),
+          hasUser.docs.isEmpty
+              ? 0.0
+              : hasUser.docs.first.get('income').toDouble(),
         );
         if (hasUser.docs.isEmpty) {
           final userCollection = fireStore.collection("Users");

@@ -1,3 +1,6 @@
 abstract class ISetIncomeDatasource {
-  Future<void> call(String userId);
+  Future<void> call(
+    String userId,
+    double income,
+  );
 }

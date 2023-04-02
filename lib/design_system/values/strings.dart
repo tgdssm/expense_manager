@@ -34,5 +34,4 @@ class Strings {
   // Errors
   static const errorCreatingAccount = "errorCreatingAccount";
   static const selectEmail = "selectEmail";
-
 }

@@ -15,7 +15,6 @@ class IncomePage extends StatefulWidget {
 }
 
 class _IncomePageState extends State<IncomePage> {
-
   @override
   void dispose() {
     super.dispose();
@@ -55,7 +54,8 @@ class _IncomePageState extends State<IncomePage> {
                 const VerticalSpace(height: 40),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: DefaultButton(text: Strings.proceed.i18n(), onTap: () {}),
+                  child:
+                      DefaultButton(text: Strings.proceed.i18n(), onTap: () {}, ),
                 ),
                 // ValueListenableBuilder(
                 //     valueListenable: _controller.loadingButton,

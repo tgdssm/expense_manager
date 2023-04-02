@@ -15,6 +15,13 @@ class UserModel extends UserEntity {
         map["income"] as double,
       );
 
+  UserModel copyWith(double income) => UserModel(
+        id,
+        name,
+        email,
+        income,
+      );
+
   Map<String, dynamic> toMap() => {
         "id": id,
         "name": name,

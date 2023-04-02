@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_manager/app/data/datasources/datasources.dart';
 import 'package:expense_manager/app/data/repositories/repositories.dart';
-import 'package:expense_manager/app/domain/entities/user_entity.dart';
 import 'package:expense_manager/app/domain/repositories/repositories.dart';
 import 'package:expense_manager/app/domain/usecases/usecases.dart';
 import 'package:expense_manager/app/ui/introduction/controllers/introduction_controller.dart';
@@ -55,6 +54,9 @@ class AppModule extends Module {
           FirebaseFirestore.instance,
         ),
 
+        // User Manager
+        Bind.singleton<UserManager>((i) => UserManager()),
+
         // Datasource
         Bind.factory<ICreateAccountDatasource>(
           (i) => CreateAccountDatasourceImpl(i(), i()),
@@ -64,6 +66,9 @@ class AppModule extends Module {
         ),
         Bind.factory<IForgotPasswordDatasource>(
           (i) => ForgotPasswordDatasourceImpl(i()),
+        ),
+        Bind.factory<ISetIncomeDatasource>(
+          (i) => SetIncomeDatasourceImpl(i()),
         ),
 
         // Repositories
@@ -75,6 +80,9 @@ class AppModule extends Module {
         ),
         Bind.factory<IForgotPasswordRepository>(
           (i) => ForgotPasswordRepositoryImpl(i()),
+        ),
+        Bind.factory<ISetIncomeRepository>(
+          (i) => SetIncomeRepositoryImpl(i()),
         ),
 
         // Use cases
@@ -93,16 +101,19 @@ class AppModule extends Module {
         Bind.factory<IForgotPasswordUseCase>(
           (i) => ForgotPasswordUseCaseImpl(i()),
         ),
+        Bind.factory<ISetIncomeUseCase>(
+          (i) => SetIncomeUseCaseImpl(i()),
+        ),
 
         // Controllers
         Bind.factory<IntroductionController>(
           (i) => IntroductionControllerImpl(),
         ),
         Bind.factory<CreateAccountController>(
-          (i) => CreateAccountControllerImpl(i(), i()),
+          (i) => CreateAccountControllerImpl(i(), i(), i()),
         ),
         Bind.factory<SignInController>(
-          (i) => SignInControllerImpl(i(), i()),
+          (i) => SignInControllerImpl(i(), i(), i()),
         ),
       ];
 }
