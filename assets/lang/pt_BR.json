@@ -31,5 +31,6 @@
     "selectEmail": "Selecione um email",
     "whatIsYourIncome": "Qual sua renda?",
     "expensesAreAboveYourIncome": "Vamos usar isso para que você saiba quando suas despesas estão acima de sua renda",
-    "proceed": "Prosseguir"
+    "proceed": "Prosseguir",
+    "incomeGreaterThanZero": "A renda informada deve ser maior que zero"
 }

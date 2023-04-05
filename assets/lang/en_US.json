@@ -31,6 +31,7 @@
     "selectEmail": "Select an email",
     "whatIsYourIncome": "What is your income?",
     "expensesAreAboveYourIncome": "Let's use this to let you know when your expenses are above your income.",
-    "proceed": "Proceed"
+    "proceed": "Proceed",
+    "incomeGreaterThanZero": "Income entered must be greater than zero"
 
 }
