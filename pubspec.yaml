@@ -39,6 +39,10 @@ dependencies:
     git:
       url: https://github.com/tgdssm/result.git
       ref: master
+  flutter_toast_widget:
+    git:
+      url: https://github.com/tgdssm/flutter_toast_widget.git
+      ref: master
 
 dev_dependencies:
   flutter_test:

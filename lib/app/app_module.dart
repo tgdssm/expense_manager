@@ -3,6 +3,7 @@ import 'package:expense_manager/app/data/datasources/datasources.dart';
 import 'package:expense_manager/app/data/repositories/repositories.dart';
 import 'package:expense_manager/app/domain/repositories/repositories.dart';
 import 'package:expense_manager/app/domain/usecases/usecases.dart';
+import 'package:expense_manager/app/ui/income/controllers/income_controller.dart';
 import 'package:expense_manager/app/ui/introduction/controllers/introduction_controller.dart';
 import 'package:expense_manager/app/ui/introduction/pages/introduction_page.dart';
 import 'package:expense_manager/app/ui/signin/controllers/create_account_controller.dart';
@@ -114,6 +115,9 @@ class AppModule extends Module {
         ),
         Bind.factory<SignInController>(
           (i) => SignInControllerImpl(i(), i(), i()),
+        ),
+        Bind.factory<IncomeController>(
+          (i) => IncomeControllerImpl(i(), i()),
         ),
       ];
 }
