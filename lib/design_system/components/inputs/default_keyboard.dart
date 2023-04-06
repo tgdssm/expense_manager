@@ -177,9 +177,6 @@ class _DefaultKeyboardState extends State<DefaultKeyboard> {
     if (income.value.contains('.') && income.value.split('').reversed.first == '.' && value == ',') {
       return;
     }
-    if (income.value.split('').reversed.first == '.' && value == ',') {
-      return;
-    }
     income.value += value;
     if (income.value.length >= 2 &&
         income.value.split('').reversed.toList()[1] == ",") {
