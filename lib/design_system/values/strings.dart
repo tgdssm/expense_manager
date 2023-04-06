@@ -30,9 +30,9 @@ class Strings {
   static const whatIsYourIncome = "whatIsYourIncome";
   static const expensesAreAboveYourIncome = "expensesAreAboveYourIncome";
   static const proceed = "proceed";
+  static const incomeGreaterThanZero = "incomeGreaterThanZero";
 
   // Errors
   static const errorCreatingAccount = "errorCreatingAccount";
   static const selectEmail = "selectEmail";
-
 }

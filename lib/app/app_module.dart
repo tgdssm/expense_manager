@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_manager/app/data/datasources/datasources.dart';
 import 'package:expense_manager/app/data/repositories/repositories.dart';
-import 'package:expense_manager/app/domain/entities/user_entity.dart';
 import 'package:expense_manager/app/domain/repositories/repositories.dart';
 import 'package:expense_manager/app/domain/usecases/usecases.dart';
+import 'package:expense_manager/app/ui/income/controllers/income_controller.dart';
 import 'package:expense_manager/app/ui/introduction/controllers/introduction_controller.dart';
 import 'package:expense_manager/app/ui/introduction/pages/introduction_page.dart';
 import 'package:expense_manager/app/ui/signin/controllers/create_account_controller.dart';
@@ -36,7 +36,7 @@ class AppModule extends Module {
     ChildRoute(
       Routes.income.name,
       transition: TransitionType.leftToRight,
-      child: (context, args) => IncomePage(currentUser: args.data),
+      child: (context, args) => const IncomePage(),
     ),
   ];
 
@@ -55,6 +55,9 @@ class AppModule extends Module {
           FirebaseFirestore.instance,
         ),
 
+        // User Manager
+        Bind.singleton<UserManager>((i) => UserManager()),
+
         // Datasource
         Bind.factory<ICreateAccountDatasource>(
           (i) => CreateAccountDatasourceImpl(i(), i()),
@@ -64,6 +67,9 @@ class AppModule extends Module {
         ),
         Bind.factory<IForgotPasswordDatasource>(
           (i) => ForgotPasswordDatasourceImpl(i()),
+        ),
+        Bind.factory<ISetIncomeDatasource>(
+          (i) => SetIncomeDatasourceImpl(i()),
         ),
 
         // Repositories
@@ -75,6 +81,9 @@ class AppModule extends Module {
         ),
         Bind.factory<IForgotPasswordRepository>(
           (i) => ForgotPasswordRepositoryImpl(i()),
+        ),
+        Bind.factory<ISetIncomeRepository>(
+          (i) => SetIncomeRepositoryImpl(i()),
         ),
 
         // Use cases
@@ -93,16 +102,22 @@ class AppModule extends Module {
         Bind.factory<IForgotPasswordUseCase>(
           (i) => ForgotPasswordUseCaseImpl(i()),
         ),
+        Bind.factory<ISetIncomeUseCase>(
+          (i) => SetIncomeUseCaseImpl(i()),
+        ),
 
         // Controllers
         Bind.factory<IntroductionController>(
           (i) => IntroductionControllerImpl(),
         ),
         Bind.factory<CreateAccountController>(
-          (i) => CreateAccountControllerImpl(i(), i()),
+          (i) => CreateAccountControllerImpl(i(), i(), i()),
         ),
         Bind.factory<SignInController>(
-          (i) => SignInControllerImpl(i(), i()),
+          (i) => SignInControllerImpl(i(), i(), i()),
+        ),
+        Bind.factory<IncomeController>(
+          (i) => IncomeControllerImpl(i(), i()),
         ),
       ];
 }

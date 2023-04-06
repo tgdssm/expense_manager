@@ -226,6 +226,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_toast_widget:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "5c927391debadb20898054b1aac227539fd50fe7"
+      url: "https://github.com/tgdssm/flutter_toast_widget.git"
+    source: git
+    version: "0.0.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -251,7 +260,7 @@ packages:
       name: google_identity_services_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0"
+    version: "0.2.1"
   google_sign_in:
     dependency: "direct main"
     description:
@@ -279,7 +288,7 @@ packages:
       name: google_sign_in_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.1"
+    version: "2.4.0"
   google_sign_in_web:
     dependency: transitive
     description:
@@ -638,5 +647,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.18.0 <3.0.0"
+  dart: ">=2.18.5 <3.0.0"
   flutter: ">=3.3.0"

@@ -1,13 +1,13 @@
-import 'package:expense_manager/app/domain/entities/user_entity.dart';
+import 'package:expense_manager/app/ui/income/controllers/income_controller.dart';
+import 'package:expense_manager/core/core_export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_toast_widget/toast.dart';
 import 'package:localization/localization.dart';
 import '../../../../design_system/design_system_export.dart';
 
 class IncomePage extends StatefulWidget {
-  final UserEntity currentUser;
   const IncomePage({
     Key? key,
-    required this.currentUser,
   }) : super(key: key);
 
   @override
@@ -15,6 +15,8 @@ class IncomePage extends StatefulWidget {
 }
 
 class _IncomePageState extends State<IncomePage> {
+  final _controller = injection<IncomeController>();
+
   @override
   void dispose() {
     super.dispose();
@@ -24,7 +26,7 @@ class _IncomePageState extends State<IncomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Form(
             child: ListView(
@@ -46,22 +48,46 @@ class _IncomePageState extends State<IncomePage> {
                   ),
                 ),
                 const VerticalSpace(height: 40),
-                const DefaultKeyboard(),
-                const VerticalSpace(height: 40),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: DefaultButton(text: Strings.proceed, onTap: () {}),
+                DefaultKeyboard(
+                  value: (value) {
+                    _controller.income = value;
+                  },
                 ),
-                // ValueListenableBuilder(
-                //     valueListenable: _controller.loadingButton,
-                //     builder: (context, value, child) {
-                //       return DefaultButton(
-                //         loading: _controller.loadingButton.value,
-                //         text: Strings.login.i18n(),
-                //         onTap: _controller.signInWithEmailAndPasswd,
-                //         width: 325,
-                //       );
-                //     }),
+                const VerticalSpace(height: 40),
+                ValueListenableBuilder(
+                  valueListenable: _controller.loadingButton,
+                  builder: (context, value, child) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: DefaultButton(
+                        loading: _controller.loadingButton.value,
+                        text: Strings.proceed.i18n(),
+                        onTap: () {
+                          _controller.setIncome().then((_) {
+                            if (_controller
+                                .errorMessage.value.isNotEmpty) {
+                              ToastWidget.show(
+                                context: context,
+                                showIn: ShowIn.topCenter,
+                                message: _controller.errorMessage.value,
+                                decoration: const BoxDecoration(
+                                  color: AppColors.primaryColor,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(32),
+                                  ),
+                                ),
+                                style: TextStyles.body4.copyWith(
+                                  color: AppColors.white,
+                                ),
+                              );
+                            }
+                          });
+                        },
+                        width: 325,
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),

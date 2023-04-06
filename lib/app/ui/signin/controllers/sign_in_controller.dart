@@ -21,10 +21,12 @@ abstract class SignInController {
 class SignInControllerImpl implements SignInController {
   final ISignInWithGoogleUseCase signInWithGoogleUseCase;
   final ISignInWithEmailAndPasswdUseCase signInWithEmailAndPasswdUseCase;
+  final UserManager userManager;
 
   SignInControllerImpl(
     this.signInWithGoogleUseCase,
     this.signInWithEmailAndPasswdUseCase,
+    this.userManager,
   );
 
   @override
@@ -58,10 +60,12 @@ class SignInControllerImpl implements SignInController {
           passwd.text,
         );
         if (result.isSuccess) {
-          Modular.to.pushReplacementNamed(
-            Routes.income.name,
-            arguments: result.successData,
-          );
+          userManager.user = result.successData;
+          if (result.successData.income == 0) {
+            Modular.to.pushReplacementNamed(
+              Routes.income.name,
+            );
+          }
         } else {
           errorMessage.value = result.errorData.message;
         }
@@ -78,10 +82,12 @@ class SignInControllerImpl implements SignInController {
     try {
       final result = await signInWithGoogleUseCase();
       if (result.isSuccess) {
-        Modular.to.pushReplacementNamed(
-          Routes.income.name,
-          arguments: result.successData,
-        );
+        userManager.user = result.successData;
+        if (result.successData.income == 0) {
+          Modular.to.pushReplacementNamed(
+            Routes.income.name,
+          );
+        }
       } else {
         errorMessage.value = result.errorData.message;
       }

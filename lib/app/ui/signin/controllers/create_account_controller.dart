@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:expense_manager/app/domain/entities/account_entity.dart';
+import 'package:expense_manager/app/domain/entities/user_entity.dart';
 import 'package:expense_manager/app/domain/usecases/create_account.dart';
 import 'package:expense_manager/core/core_export.dart';
 import 'package:flutter/material.dart';
@@ -38,10 +39,12 @@ abstract class CreateAccountController {
 class CreateAccountControllerImpl implements CreateAccountController {
   final ICreateAccountUseCase createAccountUseCase;
   final IVerifyEmailUseCase verifyEmailUseCase;
+  final UserManager userManager;
 
   CreateAccountControllerImpl(
     this.createAccountUseCase,
     this.verifyEmailUseCase,
+    this.userManager,
   );
 
   @override
@@ -83,7 +86,7 @@ class CreateAccountControllerImpl implements CreateAccountController {
       emailExists = false;
       await fEmailExists();
       if (!emailExists) {
-        createAccount();
+        await createAccount();
       } else {
         errorMessage.value = Strings.emailIsAlreadyBeingUsed.i18n();
       }
@@ -96,10 +99,12 @@ class CreateAccountControllerImpl implements CreateAccountController {
     try {
       final result = await createAccountUseCase(account: account);
       if (result.isSuccess) {
-        Modular.to.pushReplacementNamed(
-          Routes.income.name,
-          arguments: result.successData,
-        );
+        userManager.user = result.successData;
+        if(result.successData.income == 0) {
+          Modular.to.pushReplacementNamed(
+            Routes.income.name,
+          );
+        }
         resetControllers();
       } else {
         errorMessage.value = result.errorData.message;

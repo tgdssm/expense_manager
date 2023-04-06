@@ -15,7 +15,9 @@ class ErrorBox extends StatelessWidget {
         color: AppColors.lightRed.withOpacity(.1),
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Center(child: Text(error, style: TextStyles.body1.copyWith(color: AppColors.lightRed))),
+      child: Center(
+          child: Text(error,
+              style: TextStyles.body1.copyWith(color: AppColors.lightRed))),
     );
   }
 }

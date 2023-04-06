@@ -50,15 +50,21 @@ class SignInDatasourceImpl implements ISignInDatasource {
           idToken: googleAuth.idToken,
         );
         final result = await auth.signInWithCredential(credential);
+        final hasUser = await fireStore
+            .collection('Users')
+            .where(
+              'id',
+              isEqualTo: result.user!.uid,
+            )
+            .get();
         final user = UserModel(
           result.user!.uid,
           account.displayName!,
           account.email,
+          hasUser.docs.isEmpty
+              ? 0.0
+              : hasUser.docs.first.get('income').toDouble(),
         );
-        final hasUser = await fireStore
-            .collection('Users')
-            .where('id', isEqualTo: user.id)
-            .get();
         if (hasUser.docs.isEmpty) {
           final userCollection = fireStore.collection("Users");
           await userCollection.doc(user.id).set(user.toMap());
